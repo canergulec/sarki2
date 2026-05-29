@@ -3,543 +3,580 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMW Tutkusu | Saf Sürüş Keyfi</title>
+    <title>Eller Üzer - Serkan Nişancı</title>
     <style>
-        /* Temel Değişkenler ve Sıfırlamalar */
-        :root {
-            --primary-color: #0066b1; 
-            --bg-color: #121212;
-            --text-color: #ffffff;
-        }
-
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Circular', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
-
+        
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            background-color: #121212; 
+            color: #ffffff;
+            display: flex;
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        /* Header / Navbar */
-        header {
-            background-color: rgba(0, 0, 0, 0.9);
-            padding: 1rem 5%;
+        .main-wrapper {
+            margin: auto; 
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+            width: 100%;
+            max-width: 900px;
+            background: linear-gradient(180deg, #382c2a 0%, #121212 100%);
+            padding: 40px;
+            border-radius: 15px;
+        }
+
+        .player-section {
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-bar {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #b3b3b3;
+            margin-bottom: 24px;
+        }
+
+        .album-cover {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-color: #282828;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+            background-image: url('pamuk.png'); 
+            background-size: cover;
+            background-position: center;
+        }
+
+        .song-details {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
+            margin-bottom: 20px;
         }
 
-        /* Logo Tasarımı */
-        .logo-container {
+        .song-info h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+        .song-info h2 {
+            font-size: 16px;
+            font-weight: 400;
+            color: #b3b3b3;
+        }
+
+        .like-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px; 
-            text-decoration: none;
-        }
-
-        .nav-logo {
-            height: 40px; 
-            width: auto;
-        }
-
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--text-color);
-            letter-spacing: 2px;
-        }
-
-        .logo-text span {
-            color: var(--primary-color);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        nav ul li a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: var(--primary-color);
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('arkaplan.jpg') center/cover;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1s forwards 0.5s;
+        .like-btn svg {
+            transition: fill 0.2s, transform 0.1s;
         }
 
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1s forwards 0.8s;
-        }
-
-        .btn {
-            padding: 15px 30px;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            opacity: 0;
-            animation: fadeUp 1s forwards 1.1s;
-        }
-
-        .btn:hover {
-            background-color: #00508c;
+        .like-btn:hover svg {
             transform: scale(1.05);
         }
 
-        /* Models Section */
-        .models {
-            padding: 5rem 5%;
-            text-align: center;
+        #heartOutline:hover {
+            fill: #ffffff !important;
         }
 
-        .models h2 {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--primary-color);
+        #heartFilled:hover {
+            fill: #1ed760 !important;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background-color: #1e1e1e;
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        .custom-player {
             display: flex;
             flex-direction: column;
+            gap: 12px;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .card-content {
-            padding: 20px;
-            flex-grow: 1;
+        .progress-container {
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card h3 {
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-        }
-        
-        .card p {
-            margin-bottom: 15px;
-        }
-
-        .card-btn {
-            align-self: flex-start;
-            padding: 10px 20px;
-            background-color: transparent;
-            color: var(--primary-color);
-            border: 1px solid var(--primary-color);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .card-btn:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        /* --- YENİ EKLENEN: Satış Rakamları Bölümü --- */
-        .sales-stats {
-            padding: 5rem 5%;
-            background-color: #181818; /* Modeller bölümünden hafifçe ayrışması için */
-            text-align: center;
-        }
-
-        .sales-stats h2 {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--primary-color);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .stat-box {
-            background-color: #1e1e1e;
-            padding: 40px 20px;
-            border-radius: 10px;
-            border-bottom: 4px solid var(--primary-color);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-box:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-number {
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-
-        .stat-text {
-            font-size: 1.1rem;
-            color: #aaaaaa;
-        }
-        /* ------------------------------------------- */
-
-        /* Modal (Açılır Pencere) Tasarımı */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            justify-content: center;
             align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            gap: 10px;
+            font-size: 12px;
+            color: #a7a7a7;
+            font-weight: 400;
         }
 
-        .modal.show {
+        .progress-bar-wrapper {
+            position: relative;
+            flex: 1;
+            height: 12px;
             display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: #4d4d4d;
+            border-radius: 2px;
+            outline: none;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .progress-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .progress-bar-wrapper:hover .progress-bar::-webkit-slider-thumb {
             opacity: 1;
         }
 
-        .modal-content {
-            background-color: #1e1e1e;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 800px;
-            width: 90%;
-            position: relative;
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+        .progress-bar-wrapper:hover .progress-bar {
+            background: linear-gradient(to right, #1db954 var(--progress-percent, 0%), #4d4d4d var(--progress-percent, 0%));
         }
 
-        .modal.show .modal-content {
-            transform: scale(1);
+        .progress-bar::-webkit-slider-runnable-track {
+            height: 4px;
+            border-radius: 2px;
         }
 
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .close-btn:hover {
-            color: #fff;
-        }
-
-        .modal-body {
+        .controls {
             display: flex;
-            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 10px;
         }
 
-        .modal-body img {
-            width: 50%;
-            border-radius: 5px;
-            object-fit: cover;
+        .control-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: opacity 0.2s;
         }
 
-        .modal-info h3 {
-            color: var(--primary-color);
-            font-size: 2rem;
-            margin-bottom: 10px;
+        .control-btn:hover {
+            opacity: 1;
         }
 
-        .modal-info ul {
-            list-style: none;
-            margin-top: 15px;
+        .control-btn svg {
+            fill: #ffffff;
+            transition: fill 0.2s;
         }
 
-        .modal-info ul li {
-            margin-bottom: 10px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 5px;
+        .play-pause-btn {
+            background: #ffffff;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.1s;
         }
 
-        .modal-info ul li strong {
-            color: #aaa;
+        .play-pause-btn:hover {
+            transform: scale(1.05);
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: #0a0a0a;
+        .play-pause-btn svg {
+            fill: #000000;
+            width: 24px;
+            height: 24px;
         }
 
-        /* Animations */
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .lyrics-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #927e79; 
+            border-radius: 12px;
+            padding: 24px;
+            height: 520px;
         }
 
-        /* Responsive */
+        .lyrics-header {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .lyrics-scroll-area {
+            flex: 1;
+            overflow: hidden; 
+            position: relative;
+            height: 100%;
+            width: 100%;
+            mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+        }
+
+        #lyricsWrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+        }
+
+        .lyric-line {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000; 
+            opacity: 0.5;
+            margin-bottom: 24px;
+            line-height: 1.3;
+            transition: all 0.3s ease;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .lyric-line:hover:not(.active) {
+            color: #ffffff;
+            opacity: 0.8;
+        }
+
+        .lyric-line.active {
+            color: #ffffff;
+            opacity: 1;
+            font-size: 28px; 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1.1rem; }
-            nav ul { display: none; }
-            .modal-body { flex-direction: column; }
-            .modal-body img { width: 100%; }
+            body {
+                padding: 0;
+            }
+            .main-wrapper {
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 20px 50px 20px; 
+                gap: 30px;
+                border-radius: 0;
+                min-height: 100vh;
+                height: auto;
+            }
+            .player-section {
+                width: 100%;
+                max-width: 400px;
+                flex-shrink: 0; 
+            }
+            .lyrics-section {
+                width: 100%;
+                max-width: 400px;
+                flex: none; 
+                height: 500px; 
+                min-height: 500px; 
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo-container">
-            <img src="logo.png" alt="BMW Logo" class="nav-logo">
-            <span class="logo-text">BMW<span>M</span></span>
-        </a>
-        <nav>
-            <ul>
-                <li><a href="#home">Ana Sayfa</a></li>
-                <li><a href="#models">Modeller</a></li>
-                <li><a href="#sales">Rakamlar</a></li> <!-- MENÜYE EKLENDİ -->
-                <li><a href="#contact">İletişim</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section class="hero" id="home">
-        <h1>Saf Sürüş Keyfi</h1>
-        <p>Mühendislik harikası, güç ve zarafetin kusursuz birleşimi. Yollara hükmetmeye hazır mısın?</p>
-        <a href="#models" class="btn">Modelleri Keşfet</a>
-    </section>
-
-    <section class="models" id="models">
-        <h2>Öne Çıkan Modeller</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="m3.jpg" alt="BMW M3">
-                <div class="card-content">
-                    <div>
-                        <h3>BMW M3 Competition</h3>
-                        <p>Pist performansı günlük kullanımla buluşuyor. 510 beygir gücündeki bu canavarla tanışın.</p>
-                    </div>
-                    <button class="card-btn" id="open-m3-modal">Detayları İncele</button>
-                </div>
-            </div>
+    <div class="main-wrapper">
+        <div class="player-section">
+            <div class="top-bar">Şu an Çalınan</div>
+            <div class="album-cover"></div>
             
-            <div class="card">
-                <img src="i8.jpg" alt="BMW i8">
-                <div class="card-content">
-                    <div>
-                        <h3>BMW i8</h3>
-                        <p>Geleceğin spor otomobili. Aerodinamik tasarım ve yenilikçi hibrit teknolojisi.</p>
+            <div class="song-details">
+                <div class="song-info">
+                    <h1>Eller Üzer</h1>
+                    <h2>Serkan Nişancı</h2>
+                </div>
+                <button class="like-btn" id="likeBtn">
+                    <svg id="heartFilled" role="img" height="24" width="24" viewBox="0 0 24 24" style="fill: #1db954;"><path d="M11.999 4.886A5.442 5.442 0 0 0 8.016 3a5.454 5.454 0 0 0-4.665 8.423l8.648 10.158 8.648-10.158A5.454 5.454 0 0 0 15.982 3a5.442 5.442 0 0 0-3.983 1.886z"></path></svg>
+                    <svg id="heartOutline" style="display: none; fill: #b3b3b3;" role="img" height="24" width="24" viewBox="0 0 24 24"><path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.438-.283-1.791-1.509-4.303-3.752C5.152 14.081 2.5 12.194 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175 2.369 1.175 3.208 0A4.21 4.21 0 0 1 16.792 3.904z"></path></svg>
+                </button>
+            </div>
+
+            <audio id="audioPlayer" src="sarki.mp3"></audio>
+
+            <div class="custom-player">
+                <div class="progress-container">
+                    <span id="currentTime">0:00</span>
+                    <div class="progress-bar-wrapper">
+                        <input type="range" class="progress-bar" id="progressBar" value="0" step="0.1">
                     </div>
-                    <button class="card-btn" id="open-i8-modal">Detayları İncele</button>
+                    <span id="totalTime">0:00</span>
                 </div>
-            </div>
-
-            <div class="card">
-                <img src="m5.jpg" alt="BMW M5">
-                <div class="card-content">
-                    <div>
-                        <h3>BMW M5 CS</h3>
-                        <p>Lüks bir sedanın içinde yatan safkan bir yarış aracı. Gücün zirvesi.</p>
-                    </div>
-                    <button class="card-btn" id="open-m5-modal">Detayları İncele</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- YENİ EKLENEN BÖLÜM: Satış İstatistikleri -->
-    <section class="sales-stats" id="sales">
-        <h2>Global Başarı ve Rakamlar</h2>
-        <div class="stats-grid">
-            <div class="stat-box">
-                <div class="stat-number">2.5M+</div>
-                <div class="stat-text">Yıllık Küresel Araç Teslimatı</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">%74</div>
-                <div class="stat-text">Tam Elektrikli (BEV) Satış Büyümesi</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">200K+</div>
-                <div class="stat-text">Yıllık BMW M Modeli Satışı</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">140+</div>
-                <div class="stat-text">Resmi Satış Yapılan Ülke</div>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <p>&copy; 2026 BMW Tutkusu Projesi. GitHub Pages üzerinde barındırılmaktadır.</p>
-    </footer>
-
-    <!-- M3 Modal -->
-    <div id="m3-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" id="close-m3-modal">&times;</span>
-            <div class="modal-body">
-                <img src="m3.jpg" alt="BMW M3 Detay">
-                <div class="modal-info">
-                    <h3>BMW M3 Competition</h3>
-                    <p>Agresif tasarımı ve efsanevi yol tutuşu ile adrenalin arayanların ilk tercihi.</p>
-                    <ul>
-                        <li><strong>Motor:</strong> 3.0 Litre 6 Silindirli M TwinPower Turbo</li>
-                        <li><strong>Güç:</strong> 510 Beygir (HP)</li>
-                        <li><strong>0-100 km/s Hızlanma:</strong> 3.9 Saniye</li>
-                        <li><strong>Çekiş:</strong> Arkadan itiş veya M xDrive Dört Tekerlekten Çekiş</li>
-                    </ul>
+                <div class="controls">
+                    <button class="control-btn" id="shuffleBtn" style="opacity: 0.4;">
+                        <svg role="img" height="16" width="16" viewBox="0 0 16 16"><path d="M13.151.922a.75.75 0 1 0-1.06 1.06L13.109 3H11.16a3.75 3.75 0 0 0-2.873 1.34l-6.173 7.356A2.25 2.25 0 0 1 .39 12.5H0V14h.391a3.75 3.75 0 0 0 2.873-1.34l6.173-7.356a2.25 2.25 0 0 1 1.724-.804h1.947l-1.017 1.018a.75.75 0 0 0 1.06 1.06L15.98 3.75 13.15.922zM.391 3.5H0V2h.391a2.25 2.25 0 0 1 1.724.804l1.465 1.747-1.146 1.365L1.054 4.304A3.75 3.75 0 0 0 .391 3.5zM15.98 12.25l-2.83 2.828a.75.75 0 1 1-1.06-1.06l1.018-1.018H11.16a2.25 2.25 0 0 1-1.724-.804l-1.465-1.747 1.146-1.365 1.38 1.644a3.75 3.75 0 0 0 2.873 1.34h1.947l-1.017-1.018a.75.75 0 1 1 1.06-1.06l2.83 2.828z"></path></svg>
+                    </button>
+                    <button class="control-btn" id="prevBtn">
+                        <svg role="img" height="16" width="16" viewBox="0 0 16 16"><path d="M3.3 1a.7.7 0 0 1 .7.7v5.15l9.95-5.744a.7.7 0 0 1 1.05.606v12.575a.7.7 0 0 1-1.05.607L4 9.149V14.3a.7.7 0 0 1-.7.7H1.7a.7.7 0 0 1-.7-.7V1.7a.7.7 0 0 1 .7-.7h1.6z"></path></svg>
+                    </button>
+                    <button class="play-pause-btn" id="playPauseBtn">
+                        <svg id="playIconSvg" role="img" viewBox="0 0 24 24"><path d="M7.05 3.606l13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"></path></svg>
+                        <svg id="pauseIconSvg" style="display: none;" role="img" viewBox="0 0 24 24"><path d="M5.7 3a.7.7 0 0 0-.7.7v16.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V3.7a.7.7 0 0 0-.7-.7H5.7zm10 0a.7.7 0 0 0-.7.7v16.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V3.7a.7.7 0 0 0-.7-.7h-2.6z"></path></svg>
+                    </button>
+                    <button class="control-btn" id="nextBtn">
+                        <svg role="img" height="16" width="16" viewBox="0 0 16 16"><path d="M12.7 1a.7.7 0 0 0-.7.7v5.15L2.05 1.107A.7.7 0 0 0 1 1.712v12.575a.7.7 0 0 0 1.05.607L12 9.149V14.3a.7.7 0 0 0 .7.7h1.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-1.6z"></path></svg>
+                    </button>
+                    <button class="control-btn" id="repeatBtn" style="opacity: 0.4;">
+                        <svg role="img" height="16" width="16" viewBox="0 0 16 16"><path d="M0 4.75A3.75 3.75 0 0 1 3.75 1h8.5A3.75 3.75 0 0 1 16 4.75v5a3.75 3.75 0 0 1-3.75 3.75H9.81l1.018 1.018a.75.75 0 1 1-1.06 1.06L6.939 12.75l2.829-2.828a.75.75 0 1 1 1.06 1.06L9.811 12h2.439a2.25 2.25 0 0 0 2.25-2.25v-5a2.25 2.25 0 0 0-2.25-2.25h-8.5A2.25 2.25 0 0 0 1.5 4.75v5A2.25 2.25 0 0 0 3.75 12H5v1.5H3.75A3.75 3.75 0 0 1 0 9.75v-5z"></path></svg>
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- i8 Modal -->
-    <div id="i8-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" id="close-i8-modal">&times;</span>
-            <div class="modal-body">
-                <img src="i8.jpg" alt="BMW i8 Detay">
-                <div class="modal-info">
-                    <h3>BMW i8 Plug-in Hybrid</h3>
-                    <p>BMW'nin "Project i" vizyonunun en ikonik temsilcisi. Karbon fiber gövdesiyle bir tasarım şaheseri.</p>
-                    <ul>
-                        <li><strong>Motor:</strong> 1.5L 3 Silindirli Turbo + Elektrik Motoru</li>
-                        <li><strong>Toplam Güç:</strong> 374 Beygir (HP)</li>
-                        <li><strong>0-100 km/s Hızlanma:</strong> 4.4 Saniye</li>
-                        <li><strong>Gövde:</strong> Karbon fiber takviyeli yolcu hücresi (CFRP)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- M5 Modal -->
-    <div id="m5-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" id="close-m5-modal">&times;</span>
-            <div class="modal-body">
-                <img src="m5.jpg" alt="BMW M5 Detay">
-                <div class="modal-info">
-                    <h3>BMW M5 CS</h3>
-                    <p>Bugüne kadar üretilmiş en güçlü BMW M modeli. Konfor ve inanılmaz bir pist performansı bir arada.</p>
-                    <ul>
-                        <li><strong>Motor:</strong> 4.4 Litre V8 M TwinPower Turbo</li>
-                        <li><strong>Güç:</strong> 635 Beygir (HP)</li>
-                        <li><strong>0-100 km/s Hızlanma:</strong> 3.0 Saniye</li>
-                        <li><strong>Ağırlık Azaltma:</strong> Yoğun karbon fiber parçalar</li>
-                    </ul>
+        <div class="lyrics-section">
+            <div class="lyrics-header">Sözler</div>
+            <div class="lyrics-scroll-area" id="lyricsScrollArea">
+                <div id="lyricsWrapper">
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Smooth Scrolling (Yeni eklenen "Rakamlar" bölümü için de otomatik çalışır)
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        const zamanKaymasi = 0; 
+
+        const lyricsData = [
+            { time: 0.0, text: "♪ (Müzik)" },
+            { time: 14.0, text: "Bak getirdi kader bizi oyuna" },
+            { time: 18.0, text: "Ölmeye hazırken yoluna" },
+            { time: 21.0, text: "Bizi anlatır dururum" },
+            { time: 24.5, text: "Kadehim dolu kalkıyor yok oluşuna" },
+            { time: 28.5, text: "Ama aldırma durulurum" },
+            { time: 31.5, text: "Yerlere düşse yine gururum" },
+            { time: 35.0, text: "Bulurum bir çaresini" },
+            { time: 38.0, text: "Belki de kaybolurum, beni boş ver sen" },
+            { time: 42.0, text: "Eller üzer seni dayanamazsın" },
+            { time: 49.0, text: "Bu dünyayı tanıyamazsın" },
+            { time: 56.0, text: "Hiç hazır değil ki duyguların" },
+            { time: 62.0, text: "O kötü kalpleri taşıyamazsın" },
+            { time: 68.0, text: "Ben seni sevdim harbiden" },
+            { time: 71.5, text: "Ama unutmam gerek yeniden" },
+            { time: 75.0, text: "O yeşil gözlerine doyamadım" },
+            { time: 78.5, text: "Doldum harbiden, taşsam deniz" },
+            { time: 82.0, text: "♪ (Müzik)" },
+            { time: 96.0, text: "Bak getirdi kader bizi oyuna" },
+            { time: 99.5, text: "Ölmeye hazırken yoluna" },
+            { time: 103.0, text: "Bizi anlatır dururum" },
+            { time: 106.5, text: "Kadehim dolu kalkıyor yok oluşuna" },
+            { time: 110.0, text: "Ama aldırma durulurum" },
+            { time: 113.5, text: "Yerlere düşse yine gururum" },
+            { time: 117.0, text: "Bulurum bir çaresini" },
+            { time: 120.0, text: "Belki de kaybolurum, beni boş ver sen" },
+            { time: 124.0, text: "Eller üzer seni dayanamazsın" },
+            { time: 131.0, text: "Bu dünyayı tanıyamazsın" },
+            { time: 138.0, text: "Hiç hazır değil ki duyguların" },
+            { time: 144.0, text: "O kötü kalpleri taşıyamazsın" },
+            { time: 151.0, text: "Ben seni sevdim harbiden" },
+            { time: 154.5, text: "Ama unutmam gerek yeniden" },
+            { time: 158.0, text: "O yeşil gözlerine doyamadım" },
+            { time: 161.5, text: "Doldum harbiden, taşsam deniz" },
+            { time: 170.0, text: "♪ (Müzik bitişi)" }
+        ];
+
+        const audio = document.getElementById('audioPlayer');
+        const lyricsWrapper = document.getElementById('lyricsWrapper');
+        const lyricsScrollArea = document.getElementById('lyricsScrollArea');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playIconSvg = document.getElementById('playIconSvg');
+        const pauseIconSvg = document.getElementById('pauseIconSvg');
+        const progressBar = document.getElementById('progressBar');
+        const currentTimeEl = document.getElementById('currentTime');
+        const totalTimeEl = document.getElementById('totalTime');
+        
+        const likeBtn = document.getElementById('likeBtn');
+        const heartFilled = document.getElementById('heartFilled');
+        const heartOutline = document.getElementById('heartOutline');
+        const repeatBtn = document.getElementById('repeatBtn');
+        
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        
+        let currentLineIndex = -1;
+        let isLiked = true; 
+        let isRepeat = false; 
+        let isShuffle = false; 
+
+        lyricsData.forEach((line, index) => {
+            const div = document.createElement('div');
+            div.className = 'lyric-line';
+            div.id = `line-${index}`;
+            div.innerText = line.text;
+            
+            div.addEventListener('click', () => {
+                audio.currentTime = line.time;
+                
+                if (audio.paused) {
+                    audio.play();
+                    playIconSvg.style.display = 'none';
+                    pauseIconSvg.style.display = 'block';
+                }
             });
+
+            lyricsWrapper.appendChild(div);
         });
 
-        const m3Modal = document.getElementById("m3-modal");
-        const i8Modal = document.getElementById("i8-modal");
-        const m5Modal = document.getElementById("m5-modal");
-
-        const btnM3 = document.getElementById("open-m3-modal");
-        const btnI8 = document.getElementById("open-i8-modal");
-        const btnM5 = document.getElementById("open-m5-modal");
-
-        const closeM3 = document.getElementById("close-m3-modal");
-        const closeI8 = document.getElementById("close-i8-modal");
-        const closeM5 = document.getElementById("close-m5-modal");
-
-        btnM3.onclick = function() { m3Modal.classList.add("show"); }
-        closeM3.onclick = function() { m3Modal.classList.remove("show"); }
-
-        btnI8.onclick = function() { i8Modal.classList.add("show"); }
-        closeI8.onclick = function() { i8Modal.classList.remove("show"); }
-
-        btnM5.onclick = function() { m5Modal.classList.add("show"); }
-        closeM5.onclick = function() { m5Modal.classList.remove("show"); }
-
-        window.onclick = function(event) {
-            if (event.target == m3Modal) { m3Modal.classList.remove("show"); }
-            if (event.target == i8Modal) { i8Modal.classList.remove("show"); }
-            if (event.target == m5Modal) { m5Modal.classList.remove("show"); }
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "0:00";
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return `${min}:${sec < 10 ? '0' : ''}${sec}`;
         }
+
+        likeBtn.addEventListener('click', () => {
+            isLiked = !isLiked;
+            if (isLiked) {
+                heartFilled.style.display = 'block';
+                heartOutline.style.display = 'none';
+            } else {
+                heartFilled.style.display = 'none';
+                heartOutline.style.display = 'block';
+            }
+        });
+
+        repeatBtn.addEventListener('click', () => {
+            isRepeat = !isRepeat;
+            if (isRepeat) {
+                repeatBtn.style.opacity = '1';
+                repeatBtn.querySelector('svg').style.fill = '#1db954';
+            } else {
+                repeatBtn.style.opacity = '0.4';
+                repeatBtn.querySelector('svg').style.fill = '#ffffff'; 
+            }
+        });
+
+        shuffleBtn.addEventListener('click', () => {
+            isShuffle = !isShuffle;
+            if (isShuffle) {
+                shuffleBtn.style.opacity = '1';
+                shuffleBtn.querySelector('svg').style.fill = '#1db954'; 
+            } else {
+                shuffleBtn.style.opacity = '0.4';
+                shuffleBtn.querySelector('svg').style.fill = '#ffffff'; 
+            }
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            progressBar.max = audio.duration;
+            totalTimeEl.innerText = formatTime(audio.duration);
+        });
+
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playIconSvg.style.display = 'none';
+                pauseIconSvg.style.display = 'block';
+            } else {
+                audio.pause();
+                playIconSvg.style.display = 'block';
+                pauseIconSvg.style.display = 'none';
+            }
+        });
+
+        progressBar.addEventListener('input', () => {
+            audio.currentTime = progressBar.value;
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const currentTime = audio.currentTime;
+            
+            progressBar.value = currentTime;
+            currentTimeEl.innerText = formatTime(currentTime);
+
+            const progressPercent = (currentTime / audio.duration) * 100;
+            progressBar.style.setProperty('--progress-percent', `${progressPercent}%`);
+            progressBar.style.background = `linear-gradient(to right, #ffffff ${progressPercent}%, #4d4d4d ${progressPercent}%)`;
+            
+            const adjustedTime = currentTime + zamanKaymasi;
+
+            let activeIndex = -1;
+            for (let i = 0; i < lyricsData.length; i++) {
+                if (adjustedTime >= lyricsData[i].time) {
+                    activeIndex = i;
+                } else {
+                    break;
+                }
+            }
+
+            if (activeIndex !== currentLineIndex && activeIndex !== -1) {
+                if (currentLineIndex !== -1) {
+                    const prevLine = document.getElementById(`line-${currentLineIndex}`);
+                    if(prevLine) prevLine.classList.remove('active');
+                }
+                
+                const currentLine = document.getElementById(`line-${activeIndex}`);
+                if(currentLine) {
+                    currentLine.classList.add('active');
+                    
+                    const containerHeight = lyricsScrollArea.clientHeight;
+                    const lineOffsetTop = currentLine.offsetTop;
+                    const lineHeight = currentLine.clientHeight;
+                    
+                    const offset = (containerHeight / 2) - lineOffsetTop - (lineHeight / 2);
+                    
+                    lyricsWrapper.style.transform = `translateY(${offset}px)`;
+                }
+                currentLineIndex = activeIndex;
+            }
+        });
+
+        audio.addEventListener('ended', () => {
+            if (isRepeat) {
+                audio.currentTime = 0;
+                audio.play();
+                
+                lyricsWrapper.style.transform = `translateY(0px)`;
+                if (currentLineIndex !== -1) {
+                    const prevLine = document.getElementById(`line-${currentLineIndex}`);
+                    if(prevLine) prevLine.classList.remove('active');
+                    currentLineIndex = -1;
+                }
+            } else {
+                playIconSvg.style.display = 'block';
+                pauseIconSvg.style.display = 'none';
+                progressBar.value = 0;
+                progressBar.style.background = `#4d4d4d`;
+                currentTimeEl.innerText = "0:00";
+                lyricsWrapper.style.transform = `translateY(0px)`;
+                
+                if (currentLineIndex !== -1) {
+                    const prevLine = document.getElementById(`line-${currentLineIndex}`);
+                    if(prevLine) prevLine.classList.remove('active');
+                    currentLineIndex = -1;
+                }
+            }
+        });
     </script>
 </body>
 </html>
