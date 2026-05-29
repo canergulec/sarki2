@@ -331,7 +331,7 @@
                     <h2>Serkan Nişancı</h2>
                 </div>
                 <button class="like-btn" id="likeBtn">
-                    <svg id="heartFilled" role="img" height="24" width="24" viewBox="0 0 24 24" style="fill: #d854d6;"><path d="M11.999 4.886A5.442 5.442 0 0 0 8.016 3a5.454 5.454 0 0 0-4.665 8.423l8.648 10.158 8.648-10.158A5.454 5.454 0 0 0 15.982 3a5.442 5.442 0 0 0-3.983 1.886z"></path></svg>
+                    <svg id="heartFilled" role="img" height="24" width="24" viewBox="0 0 24 24" style="fill: #1DB954;"><path d="M11.999 4.886A5.442 5.442 0 0 0 8.016 3a5.454 5.454 0 0 0-4.665 8.423l8.648 10.158 8.648-10.158A5.454 5.454 0 0 0 15.982 3a5.442 5.442 0 0 0-3.983 1.886z"></path></svg>
                     <svg id="heartOutline" style="display: none; fill: #b3b3b3;" role="img" height="24" width="24" viewBox="0 0 24 24"><path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.438-.283-1.791-1.509-4.303-3.752C5.152 14.081 2.5 12.194 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175 2.369 1.175 3.208 0A4.21 4.21 0 0 1 16.792 3.904z"></path></svg>
                 </button>
             </div>
@@ -492,7 +492,7 @@
             isRepeat = !isRepeat;
             if (isRepeat) {
                 repeatBtn.style.opacity = '1';
-                repeatBtn.querySelector('svg').style.fill = '#d854d6';
+                repeatBtn.querySelector('svg').style.fill = '#1DB954';
             } else {
                 repeatBtn.style.opacity = '0.4';
                 repeatBtn.querySelector('svg').style.fill = '#ffffff'; 
@@ -503,7 +503,7 @@
             isShuffle = !isShuffle;
             if (isShuffle) {
                 shuffleBtn.style.opacity = '1';
-                shuffleBtn.querySelector('svg').style.fill = '#d854d6'; 
+                shuffleBtn.querySelector('svg').style.fill = '#1DB954'; 
             } else {
                 shuffleBtn.style.opacity = '0.4';
                 shuffleBtn.querySelector('svg').style.fill = '#ffffff'; 
@@ -543,7 +543,7 @@
 
             const progressPercent = (currentTime / audio.duration) * 100;
             progressBar.style.setProperty('--progress-percent', `${progressPercent}%`);
-            progressBar.style.background = `linear-gradient(to right, #d854d6 ${progressPercent}%, #4d4d4d ${progressPercent}%)`;
+            progressBar.style.background = `linear-gradient(to right, #1DB954 ${progressPercent}%, #4d4d4d ${progressPercent}%)`;
             
             const adjustedTime = currentTime + zamanKaymasi;
 
@@ -634,7 +634,7 @@
         function updateVolumeUI(vol) {
             const progressPercent = vol * 100;
             volumeBar.style.setProperty('--progress-percent', `${progressPercent}%`);
-            volumeBar.style.background = `linear-gradient(to right, #d854d6 ${progressPercent}%, #4d4d4d ${progressPercent}%)`;
+            volumeBar.style.background = `linear-gradient(to right, #1DB954 ${progressPercent}%, #4d4d4d ${progressPercent}%)`;
             
             if (vol == 0) {
                 volumeIcon.style.display = 'none';
