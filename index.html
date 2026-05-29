@@ -29,8 +29,8 @@
             gap: 40px;
             width: 100%;
             max-width: 950px;
-            /* Görseldeki kahverengi/siyah geçişi */
-            background: linear-gradient(180deg, #322522 0%, #121212 100%);
+            /* YENİ TEMA: Görseldeki derin mor/kahverengi gradyanı */
+            background: linear-gradient(180deg, #2c2532 0%, #121212 100%);
             padding: 40px;
             border-radius: 12px;
         }
@@ -58,9 +58,16 @@
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
             margin-bottom: 30px;
-            background-image: url('pamuk.png'); 
+            /* YENİ: Albüm kapağı artık image_bbb198.jpg */
+            background-image: url('image_bbb198.jpg'); 
             background-size: cover;
             background-position: center;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.6s ease;
+        }
+
+        .album-cover.playing {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
         }
 
         .song-details {
@@ -154,8 +161,9 @@
             opacity: 1;
         }
 
+        /* YENİ VURGU RENK: Yeşil (#1db954) yerine Eflatun/Pembe (#d854d6) */
         .progress-bar-wrapper:hover .progress-bar {
-            background: linear-gradient(to right, #1db954 var(--progress-percent, 0%), #4d4d4d var(--progress-percent, 0%));
+            background: linear-gradient(to right, #d854d6 var(--progress-percent, 0%), #4d4d4d var(--progress-percent, 0%));
         }
 
         .progress-bar::-webkit-slider-runnable-track {
@@ -217,8 +225,8 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            /* Görseldeki söz kısmının vizon/kahverengi tonu */
-            background-color: #8c7a74; 
+            /* YENİ TEMA: Görseldeki vizon/mor tonlu arka plan */
+            background-color: #837a8c; 
             border-radius: 12px;
             padding: 24px;
             height: 520px;
@@ -253,7 +261,6 @@
         .lyric-line {
             font-size: 24px;
             font-weight: 700;
-            /* Pasif yazılar için hafif siyahımsı opak ton */
             color: #000000; 
             opacity: 0.25;
             margin-bottom: 24px;
@@ -307,7 +314,7 @@
     <div class="main-wrapper">
         <div class="player-section">
             <div class="top-bar">Şu an Çalınan</div>
-            <div class="album-cover"></div>
+            <div class="album-cover" id="albumCover"></div>
             
             <div class="song-details">
                 <div class="song-info">
@@ -315,7 +322,7 @@
                     <h2>Serkan Nişancı</h2>
                 </div>
                 <button class="like-btn" id="likeBtn">
-                    <svg id="heartFilled" role="img" height="24" width="24" viewBox="0 0 24 24" style="fill: #1db954;"><path d="M11.999 4.886A5.442 5.442 0 0 0 8.016 3a5.454 5.454 0 0 0-4.665 8.423l8.648 10.158 8.648-10.158A5.454 5.454 0 0 0 15.982 3a5.442 5.442 0 0 0-3.983 1.886z"></path></svg>
+                    <svg id="heartFilled" role="img" height="24" width="24" viewBox="0 0 24 24" style="fill: #d854d6;"><path d="M11.999 4.886A5.442 5.442 0 0 0 8.016 3a5.454 5.454 0 0 0-4.665 8.423l8.648 10.158 8.648-10.158A5.454 5.454 0 0 0 15.982 3a5.442 5.442 0 0 0-3.983 1.886z"></path></svg>
                     <svg id="heartOutline" style="display: none; fill: #b3b3b3;" role="img" height="24" width="24" viewBox="0 0 24 24"><path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.438-.283-1.791-1.509-4.303-3.752C5.152 14.081 2.5 12.194 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175 2.369 1.175 3.208 0A4.21 4.21 0 0 1 16.792 3.904z"></path></svg>
                 </button>
             </div>
@@ -348,6 +355,17 @@
                         <svg role="img" height="16" width="16" viewBox="0 0 16 16"><path d="M0 4.75A3.75 3.75 0 0 1 3.75 1h8.5A3.75 3.75 0 0 1 16 4.75v5a3.75 3.75 0 0 1-3.75 3.75H9.81l1.018 1.018a.75.75 0 1 1-1.06 1.06L6.939 12.75l2.829-2.828a.75.75 0 1 1 1.06 1.06L9.811 12h2.439a2.25 2.25 0 0 0 2.25-2.25v-5a2.25 2.25 0 0 0-2.25-2.25h-8.5A2.25 2.25 0 0 0 1.5 4.75v5A2.25 2.25 0 0 0 3.75 12H5v1.5H3.75A3.75 3.75 0 0 1 0 9.75v-5z"></path></svg>
                     </button>
                 </div>
+
+                <div class="volume-container" style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+                    <button class="control-btn" id="muteBtn" style="opacity: 1;">
+                        <svg id="volumeIcon" role="img" height="16" width="16" viewBox="0 0 16 16"><path d="M9.741.85a.75.75 0 0 1 .375.65v13a.75.75 0 0 1-1.125.65l-6.925-4a3.642 3.642 0 0 1-1.33-4.967 3.639 3.639 0 0 1 1.33-1.332l6.925-4a.75.75 0 0 1 .75 0zm-6.924 5.3a2.139 2.139 0 0 0 0 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 4.29V5.56a2.75 2.75 0 0 1 0 4.88z"></path></svg>
+                        <svg id="muteIcon" style="display: none;" role="img" height="16" width="16" viewBox="0 0 16 16"><path d="M13.86 5.47a.75.75 0 0 0-1.061 0l-1.47 1.47-1.47-1.47A.75.75 0 0 0 8.8 6.53L10.269 8l-1.47 1.47a.75.75 0 1 0 1.06 1.06l1.47-1.47 1.47 1.47a.75.75 0 0 0 1.06-1.06L12.39 8l1.47-1.47a.75.75 0 0 0 0-1.06z"></path><path d="M10.116 1.5A.75.75 0 0 0 8.991.85l-6.925 4a3.642 3.642 0 0 0-1.33 4.967 3.639 3.639 0 0 0 1.33 1.332l6.925 4a.75.75 0 0 0 1.125-.65v-13zM8.616 2.8v10.4l-5.8-3.35a2.139 2.139 0 0 1 0-3.7l5.8-3.35z"></path></svg>
+                    </button>
+                    <div class="progress-bar-wrapper" style="height: 12px; opacity: 0.7; transition: opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">
+                        <input type="range" class="progress-bar" id="volumeBar" value="1" max="1" step="0.01">
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -361,9 +379,8 @@
     </div>
 
     <script>
-        const zamanKaymasi = 1; 
+        const zamanKaymasi = 0; 
 
-        // Sözler son ayarlandığı gibi 1 sn geride
         const lyricsData = [
             { time: 0.0, text: "♪ (Müzik)" },
             { time: 13.0, text: "Bak getirdi kader bizi oyuna" },
@@ -411,6 +428,7 @@
         const progressBar = document.getElementById('progressBar');
         const currentTimeEl = document.getElementById('currentTime');
         const totalTimeEl = document.getElementById('totalTime');
+        const albumCover = document.getElementById('albumCover'); 
         
         const likeBtn = document.getElementById('likeBtn');
         const heartFilled = document.getElementById('heartFilled');
@@ -436,6 +454,7 @@
                     audio.play();
                     playIconSvg.style.display = 'none';
                     pauseIconSvg.style.display = 'block';
+                    albumCover.classList.add('playing'); 
                 }
             });
 
@@ -464,7 +483,8 @@
             isRepeat = !isRepeat;
             if (isRepeat) {
                 repeatBtn.style.opacity = '1';
-                repeatBtn.querySelector('svg').style.fill = '#1db954';
+                /* YENİ VURGU RENK: Eflatun/Pembe (#d854d6) */
+                repeatBtn.querySelector('svg').style.fill = '#d854d6';
             } else {
                 repeatBtn.style.opacity = '0.4';
                 repeatBtn.querySelector('svg').style.fill = '#ffffff'; 
@@ -475,7 +495,8 @@
             isShuffle = !isShuffle;
             if (isShuffle) {
                 shuffleBtn.style.opacity = '1';
-                shuffleBtn.querySelector('svg').style.fill = '#1db954'; 
+                /* YENİ VURGU RENK: Eflatun/Pembe (#d854d6) */
+                shuffleBtn.querySelector('svg').style.fill = '#d854d6'; 
             } else {
                 shuffleBtn.style.opacity = '0.4';
                 shuffleBtn.querySelector('svg').style.fill = '#ffffff'; 
@@ -487,17 +508,21 @@
             totalTimeEl.innerText = formatTime(audio.duration);
         });
 
-        playPauseBtn.addEventListener('click', () => {
+        function togglePlayPause() {
             if (audio.paused) {
                 audio.play();
                 playIconSvg.style.display = 'none';
                 pauseIconSvg.style.display = 'block';
+                albumCover.classList.add('playing'); 
             } else {
                 audio.pause();
                 playIconSvg.style.display = 'block';
                 pauseIconSvg.style.display = 'none';
+                albumCover.classList.remove('playing'); 
             }
-        });
+        }
+
+        playPauseBtn.addEventListener('click', togglePlayPause);
 
         progressBar.addEventListener('input', () => {
             audio.currentTime = progressBar.value;
@@ -511,7 +536,8 @@
 
             const progressPercent = (currentTime / audio.duration) * 100;
             progressBar.style.setProperty('--progress-percent', `${progressPercent}%`);
-            progressBar.style.background = `linear-gradient(to right, #ffffff ${progressPercent}%, #4d4d4d ${progressPercent}%)`;
+            /* YENİ VURGU RENK: Yeşil (#1db954) yerine Eflatun/Pembe (#d854d6) */
+            progressBar.style.background = `linear-gradient(to right, #d854d6 ${progressPercent}%, #4d4d4d ${progressPercent}%)`;
             
             const adjustedTime = currentTime + zamanKaymasi;
 
@@ -547,9 +573,12 @@
         });
 
         audio.addEventListener('ended', () => {
+            albumCover.classList.remove('playing'); 
+            
             if (isRepeat) {
                 audio.currentTime = 0;
                 audio.play();
+                albumCover.classList.add('playing'); 
                 
                 lyricsWrapper.style.transform = `translateY(0px)`;
                 if (currentLineIndex !== -1) {
@@ -570,6 +599,73 @@
                     if(prevLine) prevLine.classList.remove('active');
                     currentLineIndex = -1;
                 }
+            }
+        });
+
+        const volumeBar = document.getElementById('volumeBar');
+        const muteBtn = document.getElementById('muteBtn');
+        const volumeIcon = document.getElementById('volumeIcon');
+        const muteIcon = document.getElementById('muteIcon');
+        let previousVolume = 1;
+
+        volumeBar.addEventListener('input', () => {
+            audio.volume = volumeBar.value;
+            updateVolumeUI(volumeBar.value);
+        });
+
+        muteBtn.addEventListener('click', () => {
+            if (audio.volume > 0) {
+                previousVolume = audio.volume;
+                audio.volume = 0;
+                volumeBar.value = 0;
+            } else {
+                audio.volume = previousVolume;
+                volumeBar.value = previousVolume;
+            }
+            updateVolumeUI(audio.volume);
+        });
+
+        function updateVolumeUI(vol) {
+            const progressPercent = vol * 100;
+            volumeBar.style.setProperty('--progress-percent', `${progressPercent}%`);
+            /* YENİ VURGU RENK: Yeşil (#1db954) yerine Eflatun/Pembe (#d854d6) */
+            volumeBar.style.background = `linear-gradient(to right, #d854d6 ${progressPercent}%, #4d4d4d ${progressPercent}%)`;
+            
+            if (vol == 0) {
+                volumeIcon.style.display = 'none';
+                muteIcon.style.display = 'block';
+            } else {
+                volumeIcon.style.display = 'block';
+                muteIcon.style.display = 'none';
+            }
+        }
+        
+        updateVolumeUI(audio.volume);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault(); 
+                togglePlayPause();
+            }
+            else if (e.code === 'ArrowRight') {
+                e.preventDefault();
+                audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+            }
+            else if (e.code === 'ArrowLeft') {
+                e.preventDefault();
+                audio.currentTime = Math.max(0, audio.currentTime - 5);
+            }
+            else if (e.code === 'ArrowUp') {
+                e.preventDefault();
+                audio.volume = Math.min(1, audio.volume + 0.05);
+                volumeBar.value = audio.volume;
+                updateVolumeUI(audio.volume);
+            }
+            else if (e.code === 'ArrowDown') {
+                e.preventDefault();
+                audio.volume = Math.max(0, audio.volume - 0.05);
+                volumeBar.value = audio.volume;
+                updateVolumeUI(audio.volume);
             }
         });
     </script>
